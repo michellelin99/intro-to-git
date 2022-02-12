@@ -24,7 +24,7 @@ jobs:
     
     - name: Update Greeting
       run: |
-        rm hello.txt
+        rm -f hello.txt
         touch hello.txt
         echo ${{ github.event.inputs.name }} >> hello.txt
       
