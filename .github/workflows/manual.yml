@@ -33,6 +33,6 @@ jobs:
       with:
         commit-message: "Hello ${{ github.event.inputs.name }}"
         title: "Hello to your first pull request ${{ github.event.inputs.name }}!"
-        branch: "hello"
-        delete_branch: true
+        branch: "hello ${{ github.event.input.name }}"
+        delete-branch: true
       
