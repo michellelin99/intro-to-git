@@ -1,0 +1,38 @@
+# This is a basic workflow that is manually triggered
+
+name: Greet
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on:
+  workflow_dispatch:
+    # Inputs the workflow accepts.
+    inputs:
+      name:
+        # Friendly description to be shown in the UI instead of 'name'
+        description: 'Person to greet'
+        # Default value if no value is explicitly provided
+        default: 'World'
+        # Input has to be provided for the workflow to run
+        required: true
+      
+jobs:
+  greeting:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Update Greeting
+      run: |
+        rm hello.txt
+        touch hello.txt
+        echo ${{ github.event.inputs.name }} >> hello.txt
+      
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v3
+      with:
+        commit-message: "Hello ${{ github.event.inputs.name }}"
+        title: "Hello to your first pull request ${{ github.event.inputs.name }}!"
+        branch: "hello"
+        delete_branch: true
+      
